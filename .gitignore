@@ -1,0 +1,6 @@
+pycache/
+*.py[cod]
+*$py.class
+
+backend/l1/
+frontend/node_modules/
