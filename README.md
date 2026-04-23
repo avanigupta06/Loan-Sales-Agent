@@ -1,4 +1,4 @@
-# 🏦 Tata Capital — Agentic AI Loan Chatbot
+# 🏦 Loan Sales Agentic AI System
 
 A production-ready, full-stack AI-powered loan sales chatbot system inspired by Tata Capital NBFC. Built with **FastAPI** (backend) and **React** (frontend), featuring a Master Agent that orchestrates multiple specialized Worker Agents.
 

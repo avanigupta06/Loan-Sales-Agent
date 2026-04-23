@@ -32,7 +32,7 @@ export default function Header({ stage, onNewChat }) {
           <span className="header-logo-icon">🤖</span>
         </div>
         <div className="header-brand-text">
-          <span className="header-title">Loan Sales Agentic AI</span>
+          <span className="header-title">Loan Sales Agentic AI System</span>
           <span className="header-subtitle">Digital Sales Assistant · Personal Loans</span>
         </div>
       </div>
