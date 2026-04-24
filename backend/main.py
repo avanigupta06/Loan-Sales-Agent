@@ -7,6 +7,21 @@ import uuid
 # Ensure local packages are importable
 sys.path.insert(0, os.path.dirname(__file__))
 
+# Load .env file if present (for local development)
+try:
+    _env_path = os.path.join(os.path.dirname(__file__), ".env")
+    if os.path.exists(_env_path):
+        with open(_env_path) as _f:
+            for _line in _f:
+                _line = _line.strip()
+                if _line and not _line.startswith("#") and "=" in _line:
+                    _k, _, _v = _line.partition("=")
+                    if _v.strip() and not os.environ.get(_k.strip()):
+                        os.environ[_k.strip()] = _v.strip()
+except Exception:
+    pass
+
+
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
@@ -189,3 +204,33 @@ async def mock_customers():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+
+
+# ── Mini Finance Chatbot ──────────────────────────────────────────────────────
+
+from pydantic import BaseModel as _BaseModel
+from typing import List as _List
+
+class MiniChatMessage(_BaseModel):
+    role: str        # "user" | "assistant"
+    content: str
+
+class MiniChatRequest(_BaseModel):
+    query: str
+    history: _List[MiniChatMessage] = []
+
+class MiniChatResponse(_BaseModel):
+    answer: str
+    source: str      # "groq" | "fallback"
+
+@app.post("/mini-chat", response_model=MiniChatResponse)
+async def mini_chat(request: MiniChatRequest):
+    """Mini Finance Chatbot — answers EMI, loan rules, finance FAQs."""
+    from services.mini_chat_service import get_mini_chat_response
+
+    if not request.query.strip():
+        raise HTTPException(status_code=400, detail="Query cannot be empty.")
+
+    history = [{"role": m.role, "content": m.content} for m in request.history]
+    result = get_mini_chat_response(request.query.strip(), history)
+    return MiniChatResponse(**result)

@@ -229,7 +229,7 @@ def generate_sanction_letter(state: ConversationState, output_dir: str = "upload
         "3. The loan amount will be disbursed directly to your bank account on record.",
         "4. EMI payments are due on the 5th of every month.",
         "5. Non-payment of EMI will attract penal interest @ 2% per month.",
-        "6. Tata Capital reserves the right to recall the loan at any time.",
+        "6. Loan Sale Agentic AI System reserves the right to recall the loan at any time.",
     ]
     for term in terms:
         content.append(Paragraph(term, ParagraphStyle(
@@ -261,8 +261,7 @@ def generate_sanction_letter(state: ConversationState, output_dir: str = "upload
     # Footer
     content.append(HRFlowable(width="100%", thickness=0.5, color=colors.HexColor("#cccccc")))
     content.append(Paragraph(
-        "Loan Sale Agentic AI System Pvt. Ltd. | CIN: U65910MH2010PLC213028 | "
-        "NBFC Reg. No.: N-13.02190 | www.tatacapital.com | 1800-267-6060",
+        "Loan Sale Agentic AI System",
         footer_style,
     ))
 

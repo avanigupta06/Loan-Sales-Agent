@@ -7,6 +7,7 @@ import ChatInput from './components/ChatInput';
 import FileUpload from './components/FileUpload';
 import DecisionBanner from './components/DecisionBanner';
 import { api } from './utils/api';
+import MiniChatbot from './components/MiniChatbot';
 
 function getTime() {
   return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -188,6 +189,9 @@ export default function App() {
           placeholder={inputPlaceholder}
         />
       </div>
+
+      {/* ── Mini Finance Chatbot — floats independently ── */}
+      <MiniChatbot />
     </div>
   );
 }
